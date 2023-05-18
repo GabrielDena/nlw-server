@@ -8,7 +8,7 @@ app.register(cors, {
     origin: true,
 });
 
-app.register(memoriesRoutes);
+app.register(memoriesRoutes, { prefix: 'memories' });
 
 app.listen({
     port: 3333,

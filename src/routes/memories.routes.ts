@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { prisma } from '../lib/prisma';
 
 export async function memoriesRoutes(app: FastifyInstance) {
-    app.get('/memories', async () => {
+    app.get('/', async () => {
         const memories = await prisma.memory.findMany({
             orderBy: {
                 createdAt: 'asc',
@@ -19,7 +19,7 @@ export async function memoriesRoutes(app: FastifyInstance) {
         });
     });
 
-    app.get('/memories/:id', async (req) => {
+    app.get('/:id', async (req) => {
         const paramsSchema = z.object({
             id: z.string().uuid(),
         });
@@ -32,7 +32,7 @@ export async function memoriesRoutes(app: FastifyInstance) {
         return memory;
     });
 
-    app.post('/memories', async (req) => {
+    app.post('/', async (req) => {
         const bodySchema = z.object({
             content: z.string(),
             coverUrl: z.string(),
@@ -53,7 +53,7 @@ export async function memoriesRoutes(app: FastifyInstance) {
         return memory;
     });
 
-    app.put('/memories/:id', async (req) => {
+    app.put('/:id', async (req) => {
         const paramsSchema = z.object({
             id: z.string().uuid(),
         });
@@ -79,7 +79,7 @@ export async function memoriesRoutes(app: FastifyInstance) {
         return memory;
     });
 
-    app.delete('/memories/:id', async (req) => {
+    app.delete('/:id', async (req) => {
         const paramsSchema = z.object({
             id: z.string().uuid(),
         });
