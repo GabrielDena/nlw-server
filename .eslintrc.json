@@ -1,3 +1,6 @@
 {
-    "extends": ["@gabrieldenac/eslint-config/node"]
+    "extends": ["@gabrieldenac/eslint-config/node"],
+    "rules": {
+        "camelcase": "off"
+    }
 }
