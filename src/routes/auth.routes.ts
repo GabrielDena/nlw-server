@@ -5,7 +5,6 @@ import { prisma } from '../lib/prisma';
 
 export async function authRoutes(app: FastifyInstance) {
     app.post('/register', async (req) => {
-        console.log(req.body);
         const bodySchema = z.object({
             code: z.string(),
             isMobile: z.coerce.boolean().default(false),
@@ -20,7 +19,6 @@ export async function authRoutes(app: FastifyInstance) {
                 ? process.env.MOBILE_GITHUB_CLIENT_SECRET
                 : process.env.GITHUB_CLIENT_SECRET,
         };
-
         const accessTokenResponse = await axios.post(
             'https://github.com/login/oauth/access_token',
             null,
@@ -35,15 +33,12 @@ export async function authRoutes(app: FastifyInstance) {
                 },
             },
         );
-
         const { access_token } = accessTokenResponse.data;
-
         const userResponse = await axios.get('https://api.github.com/user', {
             headers: {
                 Authorization: `Bearer ${access_token}`,
             },
         });
-        console.debug(1);
         const userSchema = z.object({
             id: z.number(),
             login: z.string(),
